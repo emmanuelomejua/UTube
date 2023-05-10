@@ -13,8 +13,8 @@ router.put('/sub/:id', verifyToken, subUser)
 
 router.put('/sub/:id', verifyToken, unsubUser)
 
-router.put('/like/videoId', verifyToken, likeVideo)
+router.put('/like/:videoId', verifyToken, likeVideo)
 
-router.put('/unlike/videoId', verifyToken, unlikeVideo)
+router.put('/unlike/:videoId', verifyToken, unlikeVideo)
 
 module.exports = router

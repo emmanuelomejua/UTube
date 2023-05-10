@@ -12,7 +12,9 @@ const cookieParser = require('cookie-parser')
 //routes imports
 const authRoute = require('./routes/authRoute')
 const userRoute = require('./routes/userRoute')
+const commentRoute = require('./routes/commentRoute')
 const videoRoute = require('./routes/videoRoute')
+
 
 //Bind with express pipeline
 const app = express()
@@ -32,6 +34,7 @@ app.use(morgan('common'))
 app.use('/api/auth', authRoute)
 app.use('/api/users', userRoute)
 app.use('/api/videos', videoRoute)
+app.use('/api/comment', commentRoute)
 
 const PORT = process.env.PORT
 

@@ -1,4 +1,5 @@
 const User = require('../model/User');
+const Videos = require('../model/Video')
 const bcrypt = require('bcrypt')
 
 //update
@@ -80,12 +81,34 @@ const unsubUser = async (req, res) => {
 
 //like a video
 const likeVideo = async (req, res) => {
+    const id = req.user.id;
+    const videoId = req.params.videoId;
 
+    try {
+        await Videos.findByIdAndUpdate(videoId, {
+            $addToSet: {likes: id},
+            $pull: {dislikes: id}
+        })
+        res.status(200).json('Liked')
+    } catch (error) {
+        return res.status(500).json(error)
+    }
 }
 
 //unlike a video
 const unlikeVideo = async (req, res) => {
+    const id = req.user.id;
+    const videoId = req.params.videoId;
 
+    try {
+        await Videos.findByIdAndUpdate(videoId, {
+            $addToSet: {dislikes: id},
+            $pull: {likes: id}
+        })
+        res.status(200).json('Disliked')
+    } catch (error) {
+        return res.status(500).json(error)
+    }
 }
 
 module.exports = { updateUser, delUser, getUser, subUser, unsubUser, likeVideo, unlikeVideo  }
