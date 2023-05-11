@@ -7,7 +7,7 @@ const updateUser = async (req, res) => {
     if(req.params.id === req.user.id) {
         if(req.body.password){
             const salt = await bcrypt.genSalt(10)
-            req.body,password = await bcrypt.hash(req.body.password, salt)
+            req.body.password = await bcrypt.hash(req.body.password, salt)
             res.status(200).json('Password successfully updated')
         } else {
             try {

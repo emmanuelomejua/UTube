@@ -10,7 +10,7 @@ const encryptedPassword = (password) => {
 //Register
 const Register = async (req, res) => {
     const userExist = await User.findOne({email: req.body.email})
-    if(!userExist){
+    if(userExist){
         const { name, email, password } = req.body
         try {
             const user = await User.create({

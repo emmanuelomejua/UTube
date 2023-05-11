@@ -1,24 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import styled, { ThemeProvider } from 'styled-components'
+import Menu from './comps/Menu';
+import Navbar from './comps/Navbar';
+import { darkTheme, lightTheme } from './utils/Theme';
+import { useState } from 'react';
+import Home from './pages/Home';
+import Video from './pages/Video';
+
+const Container = styled.main`
+    display: flex;
+`
+
+const Main = styled.section`
+    flex: 7;
+    background-color: ${({theme}) => theme.bg};
+`
+
+const Wrapper = styled.section`
+  padding: 10px 50px;
+`
 
 function App() {
+  const [darkMode, setDarkMode] = useState(true)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+      <Container>
+          <Menu darkMode={darkMode} setDarkMode={setDarkMode}/>
+
+        <Main>
+          <Navbar/>
+          <Wrapper>
+            <Video/>
+          </Wrapper>
+        </Main>
+      </Container>
+    </ThemeProvider>
   );
 }
 
