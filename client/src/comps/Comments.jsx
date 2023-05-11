@@ -8,6 +8,7 @@ const NewComment = styled.div`
     display: flex;
     align-items: center;
     gap: 15px;
+    margin-bottom: 30px;
 `
 
 const Avater = styled.img`
