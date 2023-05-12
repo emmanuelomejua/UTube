@@ -1,5 +1,7 @@
 import { RiAccountCircleFill, RiSearch2Line } from 'react-icons/ri'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import Login from '../pages/Login'
 
 const Container = styled.section`
     position: sticky;
@@ -62,7 +64,9 @@ const Navbar = () => {
             <Input placeholder='Search...'/>
             <RiSearch2Line style={{marginRight: '8px'}}/>
         </Search>
-        <Button><RiAccountCircleFill/> SIGN IN</Button>
+        {/* <Link to='/signin' element={<Login/>}> */}
+          <Button><RiAccountCircleFill/> SIGN IN</Button>
+        {/* </Link> */}
       </Wrapper>
     </Container>
   )

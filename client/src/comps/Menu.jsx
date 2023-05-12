@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import logo from '../assets/logo.jpg'
 import { RiAccountCircleFill, RiExchangeBoxFill, RiFileReduceFill, RiH5, RiHistoryFill, RiHome2Fill, RiSettings3Line, RiSubwayLine, RiVideoChatLine } from 'react-icons/ri'
+import { Link } from 'react-router-dom'
 
 const Container = styled.main`
      flex: 1;
@@ -34,11 +35,15 @@ const Item = styled.section`
     align-items: center;
     cursor: pointer;
     padding: 7.5px 0;
+
+    &:hover{
+        background-color:  ${({theme}) => theme.soft};
+    }
 `
 
 const Hr = styled.hr`
     margin: 15px 0;
-    border: 0.5px solid ${({theme}) => theme.soft}
+    border: 0.5px solid ${({theme}) => theme.soft};
 `
 
 const Login = styled.div`
@@ -76,10 +81,13 @@ const Menu = ({setDarkMode,darkMode}) => {
                 <Img src={logo} alt=''/>
                 E-Logger
             </Logo>
+
+            
             <Item>
             <RiHome2Fill/>
                 Home
             </Item>
+           
 
             <Item>
             <RiExchangeBoxFill/>
@@ -105,9 +113,12 @@ const Menu = ({setDarkMode,darkMode}) => {
                History
             </Item>
             <Hr/>
+            
             <Login>
+              
                 <p>Sign In to comment and like video</p>
                 <Button><RiAccountCircleFill/> SIGN IN</Button>
+               
             </Login>
             <Hr/>
             <Title>

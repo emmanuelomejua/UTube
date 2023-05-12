@@ -3,13 +3,15 @@ import img from '../assets/picx.jpeg'
 
 const Container = styled.div`
     margin: 20px;
-    width: 320px;
-    margin-bottom: 40px;
+    width:  ${(props) => props.type !== 'sm' && '320px'};
+    margin-bottom: ${(props) => props.type === 'sm' ? '10px': '40px'};
     cursor: pointer;
+    display: ${(props) => props.type === 'sm' && 'flex'};
+    gap: 10px;
 `
 
 const Img = styled.img`
-    height: 200px;
+    height: ${(props) => props.type === 'sm' ? '100px': ' 200px'};
     width: 100%;
     background-color: #999;
 `
@@ -19,11 +21,13 @@ const Image = styled.img`
     height:  36px;
     border-radius:50%;
     background-color: #999;
+    display: ${(props) => props.type === 'sm' && 'none'};
+    
 `
 
 const Details = styled.div`
     display: flex;
-    margin-top: 14px;
+    margin-top: ${(props) => props.type !== 'sm' && '14px'};
     gap: 10px;
    
 `
@@ -49,12 +53,12 @@ const Info = styled.p`
     color: ${({theme}) => theme.textSoft};
 `
 
-const Card = () => {
+const Card = ({type}) => {
   return (
-    <Container>
-     <Img src={img} alt=""/>
-     <Details>
-        <Image src={img}/>
+    <Container type={type}>
+     <Img src={img} alt="" type={type}/>
+     <Details type={type}>
+        <Image src={img} type={type}/>
         <Texts>
             <Title>LamaTube my Oga</Title>
             <Name>Delta Forces</Name>

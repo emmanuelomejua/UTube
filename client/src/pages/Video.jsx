@@ -3,6 +3,7 @@ import media from '../assets/media.mp4'
 import img from '../assets/charter.png'
 import { RiAddBoxFill, RiReplyAllFill, RiThumbDownFill, RiThumbUpFill } from "react-icons/ri"
 import Comments from "../comps/Comments"
+import Card from "../comps/Card"
 
 const Container = styled.main`
     display: flex;
@@ -161,7 +162,12 @@ const Video = () => {
         </Content>
 
         <Recommendations>
-           Recommendations
+           <Card type='sm'/>
+           <Card type='sm'/>
+           <Card type='sm'/>
+           <Card type='sm'/>
+           <Card type='sm'/>
+           <Card type='sm'/>
         </Recommendations>
       </Container>
     </div>
