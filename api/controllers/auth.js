@@ -1,3 +1,5 @@
+'use strict';
+
 const User = require('../model/User')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
@@ -9,8 +11,8 @@ const encryptedPassword = (password) => {
 
 //Register
 const Register = async (req, res) => {
-    const userExist = await User.findOne({email: req.body.email})
-    if(userExist){
+    const isExist = await User.findOne({email: req.body.email})
+    if(!isExist){
         const { name, email, password } = req.body
         try {
             const user = await User.create({
@@ -19,17 +21,19 @@ const Register = async (req, res) => {
                 password: encryptedPassword(password)
             })
             const newUser = await user.save()
+           
             res.status(201).json(newUser)
         } catch (error) {
             res.status(500).json(error.message)
         }
     } else {
-        res.status(401).json('User already exist, pls sign in')
+        res.status(400).json('User already exist, pls sign in')
     }
 
 }
 
 
+//Login method
 const Login = async (req, res) => {
     const user = await User.findOne({email: req.body.email})
     if(user){
@@ -54,7 +58,7 @@ const Login = async (req, res) => {
             res.status(500).json(error.message)
         }
     } else {
-        res.status(401).json('Invalid username or password')
+        res.status(401).json('Pls enter a valid username and password')
     }
 
 }

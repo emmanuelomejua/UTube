@@ -82,12 +82,12 @@ const Menu = ({setDarkMode,darkMode}) => {
                 E-Logger
             </Logo>
 
-            
+            <Link to='/' className='link'>
             <Item>
             <RiHome2Fill/>
                 Home
             </Item>
-           
+            </Link>
 
             <Item>
             <RiExchangeBoxFill/>

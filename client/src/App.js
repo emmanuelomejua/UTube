@@ -6,7 +6,7 @@ import { useState } from 'react';
 import Home from './pages/Home';
 import Video from './pages/Video';
 import Login from './pages/Login';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 const Container = styled.main`
     display: flex;
@@ -32,13 +32,13 @@ function App() {
           <Navbar/>
 
           <Wrapper>
-          <BrowserRouter>
+         
            <Routes>
               <Route exact path='/' element={<Home/>}/>
               <Route path='/video/:id' element={<Video/>}/>
               <Route path='/signin' element={<Login/>}/>
            </Routes>
-          </BrowserRouter>
+        
           </Wrapper>
         </Main>
       </Container>
