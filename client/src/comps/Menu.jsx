@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import logo from '../assets/logo.jpg'
-import { RiAccountCircleFill, RiExchangeBoxFill, RiFileReduceFill, RiH5, RiHistoryFill, RiHome2Fill, RiSettings3Line, RiSubwayLine, RiVideoChatLine } from 'react-icons/ri'
+import { RiAccountCircleFill, RiExchangeBoxFill, RiFileReduceFill, RiH5, RiHistoryFill, RiHome2Fill, RiSettings3Line, RiSubwayLine, RiVideoChatLine, RiLogoutCircleFill } from 'react-icons/ri'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../redux/userReducer'
@@ -78,6 +78,10 @@ const Menu = ({setDarkMode,darkMode}) => {
 
     const currentUseer = useSelector((state) => state.user.currentUseer)
     const dispatch = useDispatch()
+
+    const handleLogout = () => {
+        dispatch(logout())
+    }
   
   return (
    
@@ -123,21 +127,15 @@ const Menu = ({setDarkMode,darkMode}) => {
                History
             </Item>
           
-            
-           { currentUseer && (
-            <Item onClick={()=>dispatch(logout())}>
-                <h2>Logout</h2>
-            </Item>
-           )  
-            // <>
-            // <Link to='/signin' className='link'>
-            // <Login >
-            //     <p>Sign In to comment and like video</p>
-            //     <Button><RiAccountCircleFill/> SIGN IN</Button>
-            // </Login>
-            // </Link>
            
-            // </>
+           { 
+            currentUseer &&
+                <Link to='/signin' className='link'>
+                <Login >
+                  <p>Sign In to comment and like video</p>
+                  <Button><RiAccountCircleFill/> SIGN IN</Button>
+                </Login>
+             </Link>
            }
               <Hr/>
             <Title>
@@ -169,7 +167,6 @@ const Menu = ({setDarkMode,darkMode}) => {
             <Item>
                  <RiVideoChatLine/>
                 News
-              
             </Item>
             
             <Item>
@@ -196,6 +193,11 @@ const Menu = ({setDarkMode,darkMode}) => {
             <Item>
             <RiVideoChatLine/>
                 Report
+            </Item>
+
+            <Item onClick={handleLogout}>
+            <RiLogoutCircleFill/>
+                Logout
             </Item>
             
             <Item onClick={()=> setDarkMode(!darkMode)} >
