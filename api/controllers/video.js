@@ -68,7 +68,7 @@ const addView = async (req, res) => {
 const randomVideo = async (req, res) => {
     try {
         const videos = await Video.aggregate([
-            {$sample: { size: 2}}
+            {$sample: { size: 10}}
         ])
         res.status(200).json(videos)
     } catch (error) {
@@ -81,7 +81,7 @@ const trendingVideos = async (req, res) => {
         const videos = await Video.find.sort({views: -1}).limit(10)
         res.status(200).json(videos)
     } catch (error) {
-        return res.status(500).json(error)
+        return res.status(500).json(error.message)
     }
 }
 

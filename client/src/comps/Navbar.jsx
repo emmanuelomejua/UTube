@@ -1,4 +1,5 @@
-import { RiAccountCircleFill, RiSearch2Line } from 'react-icons/ri'
+import { RiAccountCircleFill, RiSearch2Line, RiVideoChatFill } from 'react-icons/ri'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
@@ -56,7 +57,24 @@ const Button = styled.button`
     gap: 5px;
 `
 
+const User = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: ${({theme}) => theme.text}
+`
+
+const Avater = styled.img`
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    background-color: #999;
+`
+
 const Navbar = () => {
+
+  const { currentUser } = useSelector(state=>state.user)
+
   return (
     <Container>
       <Wrapper>
@@ -64,9 +82,26 @@ const Navbar = () => {
             <Input placeholder='Search...'/>
             <RiSearch2Line style={{marginRight: '8px'}}/>
         </Search>
-        <Link to='/signin' className='link'>
-          <Button><RiAccountCircleFill/> SIGN IN</Button>
-        </Link>
+
+        <>
+        { currentUser ? (
+            <User>
+            <RiVideoChatFill/>
+              <Avater />
+              {currentUser.name}
+            </User>
+        ) : (
+        <>
+          <Link to='/signin' className='link'>
+            <Button><RiAccountCircleFill/> SIGN IN</Button>
+          </Link>
+        </>
+        )
+
+        }
+       
+    
+        </>
       </Wrapper>
     </Container>
   )

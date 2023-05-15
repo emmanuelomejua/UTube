@@ -33,35 +33,38 @@ const Register = async (req, res) => {
 }
 
 
-//Login method
+//login method
 const Login = async (req, res) => {
-    const user = await User.findOne({email: req.body.email})
-    if(user){
-        
-        try {
-            const validate = await bcrypt.compare(req.body.password, user.password)
-            if(!validate){
-                res.status(401).json('Invalid username or password')
-            } else {
+
+    const {email, password} = req.body
+    try {
+        const user = await User.findOne({email})
+        if(!user){
+            res.status(400).json('Invalid credentials')
+        } else {
+            const vPassword = await bcrypt.compare(req.body.password, password)
+            if(!vPassword){
                 const token = jwt.sign({
                     id: user._id
-                },  process.env.JWT_KEY)
+                }, process.env.JWT_KEY)
 
-               const { password, ...info } = user._doc
+                // const {password, ...info} = user._doc
+
                 res.cookie('access_token', token, {
                     httpOnly: true
-                }).json({...info})
-              
+                }).json(user)
+               
+            } else {
+                res.status(400).json('Invalid email or password')
             }
-            
-        } catch (error) {
-            res.status(500).json(error.message)
         }
-    } else {
-        res.status(401).json('Pls enter a valid username and password')
+    } catch (error) {
+        res.status(500).json(error.message)
     }
-
 }
+
+
+
 
 // const Goggle = async (req, res) => {
     

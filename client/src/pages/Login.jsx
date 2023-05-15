@@ -1,4 +1,10 @@
+import axios from "axios"
+import { useState } from "react"
 import styled from "styled-components"
+import { url } from "../utils/apiRoute"
+import { useDispatch } from "react-redux"
+import { loginFail, loginStart, loginSuccess } from "../redux/userReducer"
+import { useNavigate } from "react-router-dom"
 
 
 const Container = styled.main`
@@ -49,6 +55,11 @@ const Button = styled.button`
     background-color:  ${({theme}) => theme.soft};
     color:  ${({theme}) => theme.textSoft};
     font-weight: 600;
+
+   &:disabled{
+    cursor: not-allowed;
+    background-color: blue;
+   }
 `
 
 const More = styled.div`
@@ -58,7 +69,6 @@ const More = styled.div`
 
 const Links = styled.span`
     margin-left: 20px;
-   
 `
 
 const Link1 = styled.span`
@@ -66,18 +76,70 @@ const Link1 = styled.span`
 `
 
 const Login = () => {
+
+    const [values, setValues] = useState({
+        email: '',
+        password: '',
+        name: ''
+    })
+    
+
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const [loading, setLoading] = useState(false)
+
+
+    const handleLogin = async (e) => {
+        e.preventDefault()
+        const {email, password} = values
+        dispatch(loginStart())
+        setLoading(true)
+        try {
+            const res = await axios.post(url + 'auth/login', {
+               email, 
+               password
+            })
+            setLoading(false)
+            console.log(res.data)
+            navigate('/')
+            dispatch(loginSuccess(res.data))
+            
+        } catch (error) {
+            dispatch(loginFail())
+        }
+    }
+
+    const handleChange = (e) => {
+        setValues(prev=>({...prev, [e.target.name]:e.target.value}))
+    }
+    console.log(values)
+
   return (
     < Container>
         <Wrapper>
             <Title>Sign In</Title>
             <SubTitle>to continue on E-Logger</SubTitle>
-            <Input placeholder="email or username"/>
-            <Input type="password" placeholder="password"/>
-            <Button>Sign In</Button>
+            <Input 
+            placeholder="email or username" 
+            name="email" 
+            value={values.email} 
+            onChange={handleChange}
+            
+            />
 
-            <Input placeholder="name"/>
-            <Input placeholder="email"/>
-            <Input type="password" placeholder="password"/>
+            <Input 
+            type="password" 
+            placeholder="password" 
+            name="password" 
+            value={values.password}  
+            onChange={handleChange}
+            
+            />
+            <Button onClick={handleLogin} disabled={loading}>Sign In</Button>
+
+            <Input placeholder="name" name="name"/>
+            <Input placeholder="email" name="email" />
+            <Input type="password" placeholder="password" name="password" />
             <Button>Sign Up</Button>
         </Wrapper>
 

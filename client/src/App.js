@@ -34,7 +34,9 @@ function App() {
           <Wrapper>
          
            <Routes>
-              <Route exact path='/' element={<Home/>}/>
+              <Route exact path='/' element={<Home type='random'/>}/>
+              <Route exact path='/trend' element={<Home type='trend'/>}/>
+              <Route exact path='/sub' element={<Home type='sub'/>}/>
               <Route path='/video/:id' element={<Video/>}/>
               <Route path='/signin' element={<Login/>}/>
            </Routes>

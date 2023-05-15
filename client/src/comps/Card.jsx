@@ -1,5 +1,10 @@
 import styled from "styled-components"
 import img from '../assets/picx.jpeg'
+import { useState } from "react"
+import { useEffect } from "react"
+import axios from "axios"
+import { url } from "../utils/apiRoute"
+import { format } from 'timeago.js'
 
 const Container = styled.div`
     margin: 20px;
@@ -53,19 +58,62 @@ const Info = styled.p`
     color: ${({theme}) => theme.textSoft};
 `
 
-const Card = ({type}) => {
+const DIV = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+`
+
+const H2 = styled.h2`
+    text-align: center;
+    margin: auto;
+`
+
+const Card = ({type, video}) => {
+
+    const [channels, setChannels] = useState({})
+    const [error, setError] = useState(false)
+  
+    useEffect(()=> {
+      const fetchChannel = async () => {
+        try {
+          const res = await axios.get(url + `users/find/${video.userId}`)
+          setChannels(res.data)
+        } catch (error) {
+          setError(true)
+          console.log(error)
+        }
+      }
+      fetchChannel()
+    }, [video.userId])
+
   return (
+    <>
+
     <Container type={type}>
-     <Img src={img} alt="" type={type}/>
-     <Details type={type}>
-        <Image src={img} type={type}/>
-        <Texts>
-            <Title>LamaTube my Oga</Title>
-            <Name>Delta Forces</Name>
-            <Info>899,221 views . 1 week ago</Info>
-        </Texts>
-     </Details>
+       {
+        error ? (
+            <DIV>
+                 <H2>Something went wrong</H2>
+            </DIV>
+        ) : (
+            <>
+                <Img src={img} alt="" type={type}/>
+                <Details type={type}>
+                <Image src={img} type={type}/>
+                <Texts>
+                    <Title>{video.title}</Title>
+                    <Name>{channels.name}</Name>
+                    <Info>{video.views} views . {format(channels.createdAt)}</Info>
+                </Texts>
+               </Details>
+            </>
+        )
+       }
+
     </Container>
+    </>
   )
 }
 

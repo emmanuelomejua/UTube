@@ -2,6 +2,8 @@ import styled from 'styled-components'
 import logo from '../assets/logo.jpg'
 import { RiAccountCircleFill, RiExchangeBoxFill, RiFileReduceFill, RiH5, RiHistoryFill, RiHome2Fill, RiSettings3Line, RiSubwayLine, RiVideoChatLine } from 'react-icons/ri'
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { logout } from '../redux/userReducer'
 
 const Container = styled.main`
      flex: 1;
@@ -71,8 +73,12 @@ const Title = styled.h2`
     margin-bottom: 15px;
 `
 
+
 const Menu = ({setDarkMode,darkMode}) => {
- 
+
+    const currentUseer = useSelector((state) => state.user.currentUseer)
+    const dispatch = useDispatch()
+  
   return (
    
     <Container>
@@ -83,23 +89,27 @@ const Menu = ({setDarkMode,darkMode}) => {
             </Logo>
 
             <Link to='/' className='link'>
-            <Item>
-            <RiHome2Fill/>
-                Home
-            </Item>
+                <Item>
+                <RiHome2Fill/>
+                    Home
+                </Item>
             </Link>
 
-            <Item>
-            <RiExchangeBoxFill/>
-                Explore
-              
-            </Item>
+            <Link to='/trend' className='link'>
+                <Item>
+                <RiExchangeBoxFill/>
+                    Explore
+                </Item>
+            </Link>
 
-            <Item>
-              
-               <RiSubwayLine/>
-               Subscription
-            </Item>
+            <Link to='/sub' className='link'>
+                <Item>
+                <RiSubwayLine/>
+                Subscription
+                </Item>
+            </Link>
+
+
             <Hr/>
             <Item>
                
@@ -112,17 +122,26 @@ const Menu = ({setDarkMode,darkMode}) => {
                <RiHistoryFill/>
                History
             </Item>
-            <Hr/>
+          
             
-            <Login>
-              
-                <p>Sign In to comment and like video</p>
-                <Button><RiAccountCircleFill/> SIGN IN</Button>
-               
-            </Login>
-            <Hr/>
+           { currentUseer && (
+            <Item onClick={()=>dispatch(logout())}>
+                <h2>Logout</h2>
+            </Item>
+           )  
+            // <>
+            // <Link to='/signin' className='link'>
+            // <Login >
+            //     <p>Sign In to comment and like video</p>
+            //     <Button><RiAccountCircleFill/> SIGN IN</Button>
+            // </Login>
+            // </Link>
+           
+            // </>
+           }
+              <Hr/>
             <Title>
-                BEST OF E-LOGGER
+                BEST OF ETUBE
             </Title>
             <Item>
                <RiVideoChatLine/>
