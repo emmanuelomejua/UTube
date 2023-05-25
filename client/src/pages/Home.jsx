@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import Card from "../comps/Card"
+import { Card} from "../comps"
 import { useState, useEffect } from "react"
 import axios from 'axios'
 import { url } from '../utils/apiRoute.js'

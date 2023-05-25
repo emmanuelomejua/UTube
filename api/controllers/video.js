@@ -59,7 +59,7 @@ const addView = async (req, res) => {
         await Video.findByIdAndUpdate(req.params.id, {
             $inc: {views: 1}
         })
-        res.status(200).json('Viewig this video')
+        res.status(200).json('Viewing this video')
     } catch (error) {
         return res.status(500).json(error)
     }
@@ -78,31 +78,31 @@ const randomVideo = async (req, res) => {
 
 const trendingVideos = async (req, res) => {
     try {
-        const videos = await Video.find.sort({views: -1}).limit(10)
+        const videos = await Video.find().sort({views: -1}).limit(10)
         res.status(200).json(videos)
     } catch (error) {
         return res.status(500).json(error.message)
     }
 }
 
-const SubscribedChannels = async (req, res) => {
+const subscribedChannels = async (req, res) => {
     try {
-        const user = await User.findById(req.user.id)
+        const user = await User.findByIdAndUpdate(req.user.id)
         const subChannels = user.subUsers
 
         const list = await Promise.all(subChannels.map((channelId) => {
-            return Video.find({ userId: channelId})
+            return Video.find({ userId : channelId})
         }))
-        res.status(200).json(list.flat().sort((a, b) => b.createdAt - a.createdAt))
+        res.status(200).json(list).flat().sort((a, b) => b.createdAt - a.createdAt)
     } catch (error) {
-        return res.status(500).json(error)
+        return res.status(500).json(error.message)
     }
 }
 
 const getByTags = async (req, res) => {
     const tags = req.query.tags.split(',')
     try {
-        const videos = await Video.find({tags : {$in : tags}}).limit(12)
+        const videos = await Video.find({tags : {$in : tags}}).limit(10)
         res.status(200).json(videos)
     } catch (error) {
         return res.status(500).json(error)
@@ -120,4 +120,4 @@ const getBySearch = async (req, res) => {
 }
 
 
-module.exports = { createVideo, updateVideo, delVideo, getVideo, addView, randomVideo, trendingVideos, SubscribedChannels, getByTags, getBySearch }
+module.exports = { createVideo, updateVideo, delVideo, getVideo, addView, randomVideo, trendingVideos, subscribedChannels, getByTags, getBySearch }

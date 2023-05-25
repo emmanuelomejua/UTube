@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import logo from '../assets/logo.jpg'
+import {logo} from '../constants/images'
 import { RiAccountCircleFill, RiExchangeBoxFill, RiFileReduceFill, RiH5, RiHistoryFill, RiHome2Fill, RiSettings3Line, RiSubwayLine, RiVideoChatLine, RiLogoutCircleFill } from 'react-icons/ri'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'

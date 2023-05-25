@@ -36,23 +36,24 @@ const Register = async (req, res) => {
 //login method
 const Login = async (req, res) => {
 
-    const {email, password} = req.body
+    const user = await User.findOne({email: req.body.email})
+
     try {
-        const user = await User.findOne({email})
+       
         if(!user){
             res.status(400).json('Invalid credentials')
         } else {
-            const vPassword = await bcrypt.compare(req.body.password, password)
-            if(!vPassword){
+            const vPassword = await bcrypt.compare(req.body.password, user.password)
+            if(vPassword){
                 const token = jwt.sign({
                     id: user._id
                 }, process.env.JWT_KEY)
 
-                // const {password, ...info} = user._doc
+                const {password, ...info} = user._doc
 
                 res.cookie('access_token', token, {
                     httpOnly: true
-                }).json(user)
+                }).json({...info})
                
             } else {
                 res.status(400).json('Invalid email or password')

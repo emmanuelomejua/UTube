@@ -1,9 +1,8 @@
 import styled from "styled-components"
-import media from '../assets/media.mp4'
-import img from '../assets/charter.png'
+import { media, charter} from '../constants/images'
 import { RiAddBoxFill, RiReplyAllFill, RiThumbDownFill, RiThumbUpFill } from "react-icons/ri"
-import Comments from "../comps/Comments"
-import Card from "../comps/Card"
+import {Comments, Card} from "../comps"
+
 
 const Container = styled.main`
     display: flex;
@@ -146,7 +145,7 @@ const Video = () => {
 
             <Channels>
                 <ChannelInfo>
-                    <Image src={img} alt=""/>
+                    <Image src={charter} alt=""/>
                     <ChannelDetail>
                      <ChannelName>Delta Forces</ChannelName>
                      <ChannelCounter>200k subcribers</ChannelCounter>

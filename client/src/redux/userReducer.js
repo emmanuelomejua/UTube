@@ -22,7 +22,7 @@ export const userSlice = createSlice({
             state.currentUser = null;
             state.error = true;
         },
-        logout: (state) => {
+        logout: () => {
             return initialState
         },
     }

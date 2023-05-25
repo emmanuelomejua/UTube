@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import img from '../assets/picx.jpeg'
+import {  picx } from '../constants/images'
 import { useState } from "react"
 import { useEffect } from "react"
 import axios from "axios"
@@ -58,17 +58,21 @@ const Info = styled.p`
     color: ${({theme}) => theme.textSoft};
 `
 
-const DIV = styled.div`
+const Div = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
+    color: ${({theme}) => theme.textSoft};
 `
 
-const H2 = styled.h2`
+const H = styled.h2`
     text-align: center;
-    margin: auto;
+    color: ${({theme}) => theme.textSoft};
+    font-size: 42px;
 `
+
+const TOKEN = ''
 
 const Card = ({type, video}) => {
 
@@ -78,7 +82,11 @@ const Card = ({type, video}) => {
     useEffect(()=> {
       const fetchChannel = async () => {
         try {
-          const res = await axios.get(url + `users/find/${video.userId}`)
+          const res = await axios.get(url + `users/find/${video.userId}`, {
+            headers: {
+                token: `Bearer ${TOKEN}`
+            }
+          })
           setChannels(res.data)
         } catch (error) {
           setError(true)
@@ -94,14 +102,14 @@ const Card = ({type, video}) => {
     <Container type={type}>
        {
         error ? (
-            <DIV>
-                 <H2>Something went wrong</H2>
-            </DIV>
+            <Div>
+                 <H>Something went wrong</H>
+            </Div>
         ) : (
             <>
-                <Img src={img} alt="" type={type}/>
+                <Img src={picx} alt="" type={type}/>
                 <Details type={type}>
-                <Image src={img} type={type}/>
+                <Image src={picx} type={type}/>
                 <Texts>
                     <Title>{video.title}</Title>
                     <Name>{channels.name}</Name>

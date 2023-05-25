@@ -1,5 +1,5 @@
 const {Router} = require('express');
-const { createVideo, updateVideo, delVideo, getVideo, addView, trendingVideos, randomVideo, SubscribedChannels, getByTags, getBySearch } = require('../controllers/video');
+const { createVideo, updateVideo, delVideo, getVideo, addView, trendingVideos, randomVideo, subscribedChannels, getByTags, getBySearch } = require('../controllers/video');
 const { verifyToken } = require('../verify');
 const router = Router()
 
@@ -18,7 +18,7 @@ router.get('/trend', trendingVideos)
 
 router.get('/random', randomVideo)
 
-router.get('/sub', verifyToken, SubscribedChannels)
+router.get('/sub', verifyToken, subscribedChannels)
 
 router.get('/tags', getByTags)
 

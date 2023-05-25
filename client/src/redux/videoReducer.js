@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 
 
 const initailState = {
-    video: []
+    video: {}
 }
 
 export const videoSlice = createSlice({

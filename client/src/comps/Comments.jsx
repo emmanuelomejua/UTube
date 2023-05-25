@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import avater from '../assets/charter.png'
+import {charter} from '../constants/images'
 import Comment from "./Commet"
 
 const Container = styled.section``
@@ -31,7 +31,7 @@ const Comments = () => {
   return (
     <Container>
         <NewComment>
-            <Avater src={avater} alt=""/>
+            <Avater src={charter} alt=""/>
             <Input placeholder="Add a Comment..." />
         </NewComment>
         <Comment/>
