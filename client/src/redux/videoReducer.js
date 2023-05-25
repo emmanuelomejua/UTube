@@ -2,10 +2,12 @@ import { createSlice } from "@reduxjs/toolkit"
 
 
 const initailState = {
-    video: {}
+    video: {},
+    error: false,
+    loading: false
 }
 
-export const videoSlice = createSlice({
+ const videoReducer = createSlice({
     name: 'video',
     initailState,
     
@@ -13,3 +15,5 @@ export const videoSlice = createSlice({
 
     }
 })
+
+export default videoReducer.actions

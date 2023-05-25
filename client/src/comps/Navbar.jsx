@@ -1,4 +1,4 @@
-import { RiAccountCircleFill, RiSearch2Line, RiVideoChatFill } from 'react-icons/ri'
+import { RiAccountCircleFill, RiSearch2Line, RiVideoUploadFill } from 'react-icons/ri'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
@@ -73,7 +73,7 @@ const Avater = styled.img`
 
 const Navbar = () => {
 
-  const { currentUser } = useSelector(state=>state.user)
+  const currentUser = useSelector(state=>state.currentUser)
 
   return (
     <Container>
@@ -86,7 +86,7 @@ const Navbar = () => {
         <>
         { currentUser ? (
             <User>
-            <RiVideoChatFill/>
+            <RiVideoUploadFill/>
               <Avater />
               {currentUser.name}
             </User>

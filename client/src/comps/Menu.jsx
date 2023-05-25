@@ -76,7 +76,7 @@ const Title = styled.h2`
 
 const Menu = ({setDarkMode,darkMode}) => {
 
-    const currentUseer = useSelector((state) => state.user.currentUseer)
+    const currentUser  = useSelector(state=>state.currentUser)
     const dispatch = useDispatch()
 
     const handleLogout = () => {
@@ -116,26 +116,27 @@ const Menu = ({setDarkMode,darkMode}) => {
 
             <Hr/>
             <Item>
-               
-               <RiVideoChatLine/>
+            <RiVideoChatLine/>
                Library
             </Item>
 
             <Item>
-              
-               <RiHistoryFill/>
+              <RiHistoryFill/>
                History
             </Item>
-          
-           
-           { 
-            currentUseer &&
+
+           {
+            !currentUser &&
+            <>
+            <Hr/>
                 <Link to='/signin' className='link'>
                 <Login >
                   <p>Sign In to comment and like video</p>
                   <Button><RiAccountCircleFill/> SIGN IN</Button>
                 </Login>
              </Link>
+            </>
+
            }
               <Hr/>
             <Title>
@@ -195,11 +196,12 @@ const Menu = ({setDarkMode,darkMode}) => {
                 Report
             </Item>
 
-            <Item onClick={handleLogout}>
+             {currentUser &&      
+                <Item onClick={handleLogout}>
             <RiLogoutCircleFill/>
                 Logout
             </Item>
-            
+            }
             <Item onClick={()=> setDarkMode(!darkMode)} >
             <RiVideoChatLine/>
                 {darkMode ? 'Light Mode': 'Dark Mode'}

@@ -100,9 +100,7 @@ const Login = () => {
                password
             })
             setLoading(false)
-            console.log(res.data)
-            navigate('/')
-            dispatch(loginSuccess(res.data))
+            dispatch(loginSuccess(res.data)) &&  navigate('/')
             
         } catch (error) {
             dispatch(loginFail())
