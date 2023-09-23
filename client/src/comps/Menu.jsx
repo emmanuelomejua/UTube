@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import {logo} from '../constants/images'
-import { RiAccountCircleFill, RiExchangeBoxFill, RiFileReduceFill, RiH5, RiHistoryFill, RiHome2Fill, RiSettings3Line, RiSubwayLine, RiVideoChatLine, RiLogoutCircleFill } from 'react-icons/ri'
+import { RiAccountCircleFill, RiExchangeBoxFill, RiH5, RiHistoryFill, RiHome2Fill, RiSubwayLine, RiVideoChatLine, RiMovieLine, RiNewspaperLine, RiForbid2Line, RiLogoutCircleLine, RiSunLine, RiFileReduceLine, RiSettingsLine, RiFootballLine, RiGamepadLine, RiMusic2Line } from 'react-icons/ri'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../redux/userReducer'
@@ -80,8 +80,10 @@ const Menu = ({setDarkMode,darkMode}) => {
     const dispatch = useDispatch()
 
     const handleLogout = () => {
-        dispatch(logout())
+        dispatch(logout(currentUser))
     }
+
+    console.log(currentUser)
   
   return (
    
@@ -143,30 +145,30 @@ const Menu = ({setDarkMode,darkMode}) => {
                 BEST OF ETUBE
             </Title>
             <Item>
-               <RiVideoChatLine/>
+               <RiMusic2Line/>
                Music
             </Item>
           
             <Item>
                 
-               <RiVideoChatLine/>
+               <RiFootballLine/>
                Sports
             </Item>
 
             <Item>
-                 <RiVideoChatLine/>
+                 <RiGamepadLine/>
                 Gaming
                
             </Item>
             
             <Item>
-                 <RiVideoChatLine/>
+                 <RiMovieLine/>
                 Movies
               
             </Item>
             
             <Item>
-                 <RiVideoChatLine/>
+                 <RiNewspaperLine/>
                 News
             </Item>
             
@@ -177,12 +179,12 @@ const Menu = ({setDarkMode,darkMode}) => {
             <Hr/>
             
             <Item>
-                 <RiSettings3Line/>
+                 <RiSettingsLine/>
                 Settings
             </Item>
             
             <Item>
-                 <RiFileReduceFill/>
+                 <RiFileReduceLine/>
                 Reports
             </Item>
             
@@ -192,18 +194,18 @@ const Menu = ({setDarkMode,darkMode}) => {
             </Item>
             
             <Item>
-            <RiVideoChatLine/>
+            <RiForbid2Line/>
                 Report
             </Item>
 
              {currentUser &&      
                 <Item onClick={handleLogout}>
-            <RiLogoutCircleFill/>
+            <RiLogoutCircleLine/>
                 Logout
             </Item>
             }
             <Item onClick={()=> setDarkMode(!darkMode)} >
-            <RiVideoChatLine/>
+            <RiSunLine/>
                 {darkMode ? 'Light Mode': 'Dark Mode'}
             </Item>
         </Wrapper>
