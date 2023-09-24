@@ -7,6 +7,8 @@ import Home from './pages/Home';
 import Video from './pages/Video';
 import Login from './pages/Login';
 import { Route, Routes } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from './redux/userReducer';
 
 const Container = styled.main`
     display: flex;
@@ -23,6 +25,15 @@ const Wrapper = styled.section`
 
 function App() {
   const [darkMode, setDarkMode] = useState(true)
+
+  const currentUser = useSelector(state => state.currentUser)
+  const dispatch = useDispatch()
+
+  const handleLogout = () => {
+     logout(dispatch, currentUser)
+     
+  }
+
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <Container>
@@ -36,7 +47,7 @@ function App() {
            <Routes>
               <Route exact path='/' element={<Home type='random'/>}/>
               <Route exact path='/trend' element={<Home type='trend'/>}/>
-              <Route exact path='/sub' element={<Home type='sub'/>}/>
+              <Route exact path='/sub' element={currentUser ? <Home type='sub'/> : <Login/>}/>
               <Route path='/video/:id' element={<Video/>}/>
               <Route path='/signin' element={<Login/>}/>
            </Routes>

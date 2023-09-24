@@ -76,11 +76,14 @@ const Title = styled.h2`
 
 const Menu = ({setDarkMode,darkMode}) => {
 
-    const currentUser  = useSelector(state=>state.currentUser)
-    const dispatch = useDispatch()
 
+  
+    const currentUser = useSelector(state => state.currentUser)
+    const dispatch = useDispatch()
+  
     const handleLogout = () => {
-        dispatch(logout(currentUser))
+       logout(dispatch, currentUser)
+       console.log('logged out!')
     }
 
     console.log(currentUser)
