@@ -86,7 +86,8 @@ const Menu = ({setDarkMode,darkMode}) => {
        console.log('logged out!')
     }
 
-    console.log(currentUser)
+    console.log(currentUser.accessToken
+        )
   
   return (
    

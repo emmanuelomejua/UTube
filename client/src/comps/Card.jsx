@@ -19,6 +19,7 @@ const Img = styled.img`
     height: ${(props) => props.type === 'sm' ? '100px': ' 200px'};
     width: 100%;
     background-color: #999;
+    border-radius: 5px;
 `
 
 const Image = styled.img`
@@ -72,7 +73,7 @@ const H = styled.h2`
     font-size: 42px;
 `
 
-const TOKEN = ''
+const TOKEN = process.env.TOKEN
 
 const Card = ({type, video}) => {
 
