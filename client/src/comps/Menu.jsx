@@ -78,16 +78,15 @@ const Menu = ({setDarkMode,darkMode}) => {
 
 
   
-    const currentUser = useSelector(state => state.currentUser)
+    const user = useSelector(state => state.user)
     const dispatch = useDispatch()
   
     const handleLogout = () => {
-       logout(dispatch, currentUser)
+       logout(dispatch, user)
        console.log('logged out!')
     }
 
-    console.log(currentUser.accessToken
-        )
+    console.log(user?.accessToken)
   
   return (
    
@@ -132,7 +131,7 @@ const Menu = ({setDarkMode,darkMode}) => {
             </Item>
 
            {
-            !currentUser &&
+            !user &&
             <>
             <Hr/>
                 <Link to='/signin' className='link'>
@@ -146,7 +145,7 @@ const Menu = ({setDarkMode,darkMode}) => {
            }
               <Hr/>
             <Title>
-                BEST OF ETUBE
+                BEST OF UTUBE
             </Title>
             <Item>
                <RiMusic2Line/>
@@ -202,12 +201,17 @@ const Menu = ({setDarkMode,darkMode}) => {
                 Report
             </Item>
 
-             {currentUser &&      
-                <Item onClick={handleLogout}>
-            <RiLogoutCircleLine/>
-                Logout
-            </Item>
-            }
+             {user ?
+             (
+                <>
+                 <Item onClick={handleLogout}>
+                    <RiLogoutCircleLine/>
+                     Logout
+                 </Item>
+                </>
+             ) : ''
+             }
+
             <Item onClick={()=> setDarkMode(!darkMode)} >
             <RiSunLine/>
                 {darkMode ? 'Light Mode': 'Dark Mode'}

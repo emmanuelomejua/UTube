@@ -3,7 +3,8 @@ import { useState } from "react"
 import styled from "styled-components"
 import { url } from "../utils/apiRoute"
 import { useDispatch } from "react-redux"
-import { loginFail, loginStart, loginSuccess } from "../redux/userReducer"
+import { login } from "../redux/apiCall"
+
 
 
 
@@ -77,52 +78,75 @@ const Link1 = styled.span`
 
 const Login = () => {
 
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const dispatch = useDispatch()
+
     const [values, setValues] = useState({
         email: '',
         password: '',
         name: ''
     })
-    
 
-    const dispatch = useDispatch()
+    const handleRegister = async () => {
+        const {email, password, name} = values
 
-    const [loading, setLoading] = useState(false)
+        try {
+            const res = await axios.post(url + 'auth/register', {
+                name,
+                email,
+                password
+            })
+            res.data &&  window.location.replace('/login')
+        } catch (error) {
+            throw Error
+        }
+    }
 
 
     const handleLogin = async (e) => {
         e.preventDefault()
-        const {email, password} = values
-        dispatch(loginStart())
-        setLoading(true)
-        try {
-            const res = await axios.post(url + 'auth/login', {
-               email, 
-               password
-            })
-            setLoading(false)
-            dispatch(loginSuccess(res.data)) &&  window.location.replace('/')
-            
-        } catch (error) {
-            dispatch(loginFail())
-        }
+        login(dispatch, {email, password})
     }
 
     const handleChange = (e) => {
         setValues(prev=>({...prev, [e.target.name]:e.target.value}))
     }
-    console.log(values)
+    
+    console.log(email, password)
 
   return (
     < Container>
         <Wrapper>
             <Title>Sign In</Title>
-            <SubTitle>to continue on E-Logger</SubTitle>
+            <SubTitle>to continue on UTUBE</SubTitle>
             <Input 
             placeholder="email or username" 
+            onChange={(e)=>setEmail(e.target.value)}
+            
+            />
+
+            <Input 
+            type="password" 
+            placeholder="password"  
+            onChange={(e)=>setPassword(e.target.value)}
+            
+            />
+            <Button onClick={handleLogin}>Sign In</Button>
+
+            <Input 
+            placeholder="name" 
+            name="name"
+            value={values.name}
+            onChange={handleChange}
+            />
+
+            <Input 
+            placeholder="email" 
             name="email" 
             value={values.email} 
             onChange={handleChange}
-            
             />
 
             <Input 
@@ -131,14 +155,9 @@ const Login = () => {
             name="password" 
             value={values.password}  
             onChange={handleChange}
-            
             />
-            <Button onClick={handleLogin} disabled={loading}>Sign In</Button>
 
-            <Input placeholder="name" name="name"/>
-            <Input placeholder="email" name="email" />
-            <Input type="password" placeholder="password" name="password" />
-            <Button>Sign Up</Button>
+            <Button onClick={handleRegister}>Sign Up</Button>
         </Wrapper>
 
         <More>

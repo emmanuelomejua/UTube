@@ -73,7 +73,7 @@ const Avater = styled.img`
 
 const Navbar = () => {
 
-  const currentUser = useSelector(state=>state.currentUser)
+  const user = useSelector(state=>state.user)
 
   return (
     <Container>
@@ -84,11 +84,11 @@ const Navbar = () => {
         </Search>
 
         <>
-        { currentUser ? (
+        {  user ? (
             <User>
             <RiVideoUploadFill/>
               <Avater />
-              {currentUser.name}
+              {user.name}
             </User>
         ) : (
         <>

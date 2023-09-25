@@ -26,7 +26,7 @@ const Wrapper = styled.section`
 function App() {
   const [darkMode, setDarkMode] = useState(true)
 
-  const currentUser = useSelector(state => state.currentUser)
+  const user = useSelector(state => state.user)
 
 
   return (
@@ -42,7 +42,7 @@ function App() {
            <Routes>
               <Route exact path='/' element={<Home type='random'/>}/>
               <Route exact path='/trend' element={<Home type='trend'/>}/>
-              <Route exact path='/sub' element={currentUser ? <Home type='sub'/> : <Login/>}/>
+              <Route exact path='/sub' element={user ? <Home type='sub'/> : <Login/>}/>
               <Route path='/video/:id' element={<Video/>}/>
               <Route path='/signin' element={<Login/>}/>
            </Routes>
