@@ -4,7 +4,7 @@ import styled from "styled-components"
 import { url } from "../utils/apiRoute"
 import { useDispatch } from "react-redux"
 import { loginFail, loginStart, loginSuccess } from "../redux/userReducer"
-import { useNavigate } from "react-router-dom"
+
 
 
 const Container = styled.main`
@@ -85,7 +85,7 @@ const Login = () => {
     
 
     const dispatch = useDispatch()
-    const navigate = useNavigate()
+
     const [loading, setLoading] = useState(false)
 
 
@@ -100,7 +100,7 @@ const Login = () => {
                password
             })
             setLoading(false)
-            dispatch(loginSuccess(res.data)) &&  navigate('/')
+            dispatch(loginSuccess(res.data)) &&  window.location.replace('/')
             
         } catch (error) {
             dispatch(loginFail())

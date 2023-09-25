@@ -1,5 +1,4 @@
 import styled from "styled-components"
-import {  picx } from '../constants/images'
 import { useState } from "react"
 import { useEffect } from "react"
 import axios from "axios"
@@ -108,9 +107,9 @@ const Card = ({type, video}) => {
             </Div>
         ) : (
             <>
-                <Img src={picx} alt="" type={type}/>
+                <Img src={video.imgUrl} alt="" type={type}/>
                 <Details type={type}>
-                <Image src={picx} type={type}/>
+                <Image src={channels.img} type={type}/>
                 <Texts>
                     <Title>{video.title}</Title>
                     <Name>{channels.name}</Name>

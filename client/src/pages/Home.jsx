@@ -32,7 +32,7 @@ const Home = ({type}) => {
     <Container>
 
           {
-            videos.map((video) => (
+            videos?.map((video) => (
               <Card video={video} key={video._id}/>
             ))
       }

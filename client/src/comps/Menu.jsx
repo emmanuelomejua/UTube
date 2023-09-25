@@ -95,7 +95,7 @@ const Menu = ({setDarkMode,darkMode}) => {
         <Wrapper>
             <Logo>
                 <Img src={logo} alt=''/>
-                E-Logger
+               UTUBE
             </Logo>
 
             <Link to='/' className='link'>

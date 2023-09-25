@@ -7,8 +7,8 @@ import Home from './pages/Home';
 import Video from './pages/Video';
 import Login from './pages/Login';
 import { Route, Routes } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { logout } from './redux/userReducer';
+import {  useSelector } from 'react-redux';
+
 
 const Container = styled.main`
     display: flex;
@@ -27,12 +27,7 @@ function App() {
   const [darkMode, setDarkMode] = useState(true)
 
   const currentUser = useSelector(state => state.currentUser)
-  const dispatch = useDispatch()
 
-  const handleLogout = () => {
-     logout(dispatch, currentUser)
-     
-  }
 
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
