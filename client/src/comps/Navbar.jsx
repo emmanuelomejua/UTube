@@ -73,7 +73,9 @@ const Avater = styled.img`
 
 const Navbar = () => {
 
-  const user = useSelector(state=>state.user)
+  const user = useSelector(state=> state.user.currentUser)
+
+  console.log(user)
 
   return (
     <Container>

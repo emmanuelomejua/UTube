@@ -7,13 +7,13 @@ export const login = async (dispatch, user) => {
 
     try {
         const res = await axios.post(url + 'auth/login', user)
-        dispatch(loginSuccess(res.data))
+        dispatch(loginSuccess(res.data)) && window.location.replace('/')
     } catch (error) {
-        dispatch(loginFail)
+        dispatch(loginFail()) && window.location.reload('/login')
     }
 }
 
 
-export const logoutUser = (dispatch) => {
+export const Logout = async (dispatch, user) => {
     dispatch(logout())
 }

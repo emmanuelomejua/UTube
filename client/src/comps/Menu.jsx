@@ -3,7 +3,7 @@ import {logo} from '../constants/images'
 import { RiAccountCircleFill, RiExchangeBoxFill, RiH5, RiHistoryFill, RiHome2Fill, RiSubwayLine, RiVideoChatLine, RiMovieLine, RiNewspaperLine, RiForbid2Line, RiLogoutCircleLine, RiSunLine, RiFileReduceLine, RiSettingsLine, RiFootballLine, RiGamepadLine, RiMusic2Line } from 'react-icons/ri'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { logout } from '../redux/userReducer'
+import { Logout } from '../redux/apiCall'
 
 const Container = styled.main`
      flex: 1;
@@ -78,15 +78,14 @@ const Menu = ({setDarkMode,darkMode}) => {
 
 
   
-    const user = useSelector(state => state.user)
+    const user = useSelector(state => state.user.currentUser)
     const dispatch = useDispatch()
   
     const handleLogout = () => {
-       logout(dispatch, user)
-       console.log('logged out!')
+        Logout(dispatch, user) && console.log('logged out!')
+      
     }
 
-    console.log(user?.accessToken)
   
   return (
    

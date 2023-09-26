@@ -98,14 +98,14 @@ const Login = () => {
                 email,
                 password
             })
-            res.data &&  window.location.replace('/login')
+            res.data &&  window.location.reload('/login')
         } catch (error) {
             throw Error
         }
     }
 
 
-    const handleLogin = async (e) => {
+    const handleLogin = (e) => {
         e.preventDefault()
         login(dispatch, {email, password})
     }
@@ -114,7 +114,7 @@ const Login = () => {
         setValues(prev=>({...prev, [e.target.name]:e.target.value}))
     }
     
-    console.log(email, password)
+    
 
   return (
     < Container>
@@ -133,7 +133,7 @@ const Login = () => {
             onChange={(e)=>setPassword(e.target.value)}
             
             />
-            <Button onClick={handleLogin}>Sign In</Button>
+            <Button type="submit" onClick={handleLogin}>Sign In</Button>
 
             <Input 
             placeholder="name" 
@@ -157,7 +157,7 @@ const Login = () => {
             onChange={handleChange}
             />
 
-            <Button onClick={handleRegister}>Sign Up</Button>
+            <Button type="submit" onClick={handleRegister}>Sign Up</Button>
         </Wrapper>
 
         <More>

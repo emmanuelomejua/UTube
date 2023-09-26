@@ -1,4 +1,4 @@
-import { configureStore,  combineReducers } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./userReducer";
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
@@ -9,13 +9,14 @@ const persistConfig = {
     storage,
 }
 
-const rootReducer = combineReducers({ user:userReducer })
+// const rootReducer = combineReducers({cart: cartReducer, user:userReducer})
 
-const persistedReducer = persistReducer(persistConfig, rootReducer)
+const persistedReducer = persistReducer(persistConfig, userReducer)
 
 export const store = configureStore({
     reducer: {
         user: persistedReducer,
+
     },
     
     middleware: (getDefaultMiddleware) => 
