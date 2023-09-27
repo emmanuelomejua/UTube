@@ -6,6 +6,8 @@ import { useDispatch } from "react-redux"
 import { login } from "../redux/apiCall"
 import { auth, provider } from '../firebase'
 import { signInWithPopup } from 'firebase/auth'
+import {  RiGoogleFill } from 'react-icons/ri'
+import { loginFail, loginStart, loginSuccess } from "../redux/userReducer"
 
 
 
@@ -57,6 +59,9 @@ const Button = styled.button`
     background-color:  ${({theme}) => theme.soft};
     color:  ${({theme}) => theme.textSoft};
     font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 
    &:disabled{
     cursor: not-allowed;
@@ -111,6 +116,25 @@ const Login = () => {
         login(dispatch, {email, password})
     }
 
+    const handleLoginWithGoogle = async () => {
+        dispatch(loginStart())
+        signInWithPopup(auth,provider)
+            .then((result) => {
+                 axios.post(url + 'auth/google', {
+                    name: result.user.displayName,
+                    email: result.user.email,
+                    img: result.user.photoURL
+                 })
+            })
+            .then((res) => {
+                dispatch(loginSuccess(res.data))
+            })
+            .catch(error=>{
+                dispatch(loginFail())
+                console.log(error)
+            })
+    }
+
     const handleChange = (e) => {
         setValues(prev=>({...prev, [e.target.name]:e.target.value}))
     }
@@ -138,7 +162,7 @@ const Login = () => {
 
             OR
 
-            <Button type="submit" onClick={handleLogin}>Sign In with Google</Button>
+            <Button type="submit" onClick={handleLoginWithGoogle}>Sign In with Google <RiGoogleFill/></Button>
 
             <Input 
             placeholder="name" 

@@ -67,8 +67,24 @@ const Login = async (req, res) => {
 
 
 
-// const Goggle = async (req, res) => {
-    
-// }
+const GoggleLogin = async (req, res) => {
+    try {
+        const user = await User.findOne({email: req.body.email})
 
-module.exports = { Register, Login }
+        if(user){
+            const token = jwt.sign({
+                id: user._id
+            }, process.env.JWT_KEY)
+
+            res.cookie('access_token', token, {
+                httpOnly: true
+            }).json(user._doc)
+        } else {
+            res.status(400).json('Invalid email or password')
+        }
+    } catch (error) {
+        res.status(500).json(error.message)
+    }
+}
+
+module.exports = { Register, Login, GoggleLogin }
