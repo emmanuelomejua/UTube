@@ -15,7 +15,6 @@ const userSchema = new Schema({
     },
     password: {
         type: String,
-        required: true,
         min: [4, 'Password must be at least 4 characters'],
         max: [25, 'Password should not exceed 25 characters']
     },
@@ -28,6 +27,10 @@ const userSchema = new Schema({
     }, 
     subUsers: {
         type: [String]
+    },
+    fromGoogle: {
+        type: Boolean,
+        default: false
     }
 }, {timestamps: true})
 

@@ -118,21 +118,23 @@ const Login = () => {
 
     const handleLoginWithGoogle = async () => {
         dispatch(loginStart())
-        signInWithPopup(auth,provider)
-            .then((result) => {
-                 axios.post(url + 'auth/google', {
-                    name: result.user.displayName,
-                    email: result.user.email,
-                    img: result.user.photoURL
-                 })
+        signInWithPopup(auth, provider)
+            
+        .then((result) => {
+            axios.post(url + 'auth/google', {
+                name: result.user.displayName,
+                email: result.user.email,
+                img:  result.user.photoURL
             })
             .then((res) => {
-                dispatch(loginSuccess(res.data))
+                dispatch(loginSuccess(res.data)) && window.location.replace('/')
             })
-            .catch(error=>{
-                dispatch(loginFail())
-                console.log(error)
-            })
+        })
+
+        .catch((error) => {
+            dispatch(loginFail())
+            console.log(error) 
+        })
     }
 
     const handleChange = (e) => {
@@ -162,7 +164,7 @@ const Login = () => {
 
             OR
 
-            <Button type="submit" onClick={handleLoginWithGoogle}>Sign In with Google <RiGoogleFill/></Button>
+            <Button onClick={handleLoginWithGoogle}>Sign In with Google <RiGoogleFill/></Button>
 
             <Input 
             placeholder="name" 

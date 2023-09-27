@@ -89,7 +89,7 @@ const Navbar = () => {
         {  user ? (
             <User>
             <RiVideoUploadFill/>
-              <Avater />
+              <Avater src={user?.img}/>
               {user.name}
             </User>
         ) : (

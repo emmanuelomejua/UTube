@@ -78,9 +78,23 @@ const GoggleLogin = async (req, res) => {
 
             res.cookie('access_token', token, {
                 httpOnly: true
-            }).json(user._doc)
+            })
+            .status(200)
+            .json(user._doc)
         } else {
-            res.status(400).json('Invalid email or password')
+            const user = new User({
+                ...req.body,
+                fromGoogle: true
+            })
+            const savedUser = await user.save()
+
+            const token = jwt.sign({
+                id: user._id
+            }, process.env.JWT_KEY)
+
+            res.cookie('access_token', token, {
+                httpOnly: true
+            }).status(200).json(savedUser)
         }
     } catch (error) {
         res.status(500).json(error.message)
