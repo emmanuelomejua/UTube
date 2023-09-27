@@ -72,9 +72,9 @@ const H = styled.h2`
     font-size: 42px;
 `
 
-// const TOKEN = process.env.TOKEN
+const TOKEN = process.env.TOKEN
 
-const TOKEN = ''
+
 
 const Card = ({type, video}) => {
 

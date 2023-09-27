@@ -4,7 +4,8 @@ import styled from "styled-components"
 import { url } from "../utils/apiRoute"
 import { useDispatch } from "react-redux"
 import { login } from "../redux/apiCall"
-
+import { auth, provider } from '../firebase'
+import { signInWithPopup } from 'firebase/auth'
 
 
 
@@ -38,7 +39,7 @@ const SubTitle = styled.h4`
 `
 
 const Input = styled.input`
-    /* border: 1px solid ${({theme}) => theme.soft}; */
+
     border-radius: 3px;
     outline: none;
     background-color: transparent;
@@ -133,7 +134,11 @@ const Login = () => {
             onChange={(e)=>setPassword(e.target.value)}
             
             />
-            <Button type="submit" onClick={handleLogin}>Sign In</Button>
+            <Button type="submit" onClick={handleLogin}>Sign In </Button>
+
+            OR
+
+            <Button type="submit" onClick={handleLogin}>Sign In with Google</Button>
 
             <Input 
             placeholder="name" 
