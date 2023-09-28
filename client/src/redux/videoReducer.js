@@ -1,13 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit"
 
+const initialState = {
+    videos: null,
+    error: false,
+    loading: false
+}
+
  const videoSlice = createSlice({
     name: 'video',
-
-    initialState:{
-        videos: null,
-        error: false,
-        loading: false
-    },
+    initialState,
     
     reducers: {
         fetchVideoStart: (state)=>{
