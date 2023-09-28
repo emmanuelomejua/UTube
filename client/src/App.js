@@ -26,8 +26,9 @@ const Wrapper = styled.section`
 function App() {
   const [darkMode, setDarkMode] = useState(true)
 
-  const user = useSelector(state => state.user.currentUser)
+  const user = useSelector(state => state.user?.currentUser)
 
+  console.log(user)
 
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>

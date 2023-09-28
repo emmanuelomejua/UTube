@@ -4,6 +4,7 @@ import { useEffect } from "react"
 import axios from "axios"
 import { url } from "../utils/apiRoute"
 import { format } from 'timeago.js'
+import { Link } from "react-router-dom"
 
 const Container = styled.div`
     margin: 20px;
@@ -72,7 +73,7 @@ const H = styled.h2`
     font-size: 42px;
 `
 
-const TOKEN = process.env.TOKEN
+
 
 
 
@@ -84,11 +85,7 @@ const Card = ({type, video}) => {
     useEffect(()=> {
       const fetchChannel = async () => {
         try {
-          const res = await axios.get(url + `users/find/${video.userId}`, {
-            headers: {
-                token: `Bearer ${TOKEN}`
-            }
-          })
+          const res = await axios.get(url + `users/find/${video.userId}`)
           setChannels(res.data)
         } catch (error) {
           setError(true)
@@ -98,9 +95,11 @@ const Card = ({type, video}) => {
       fetchChannel()
     }, [video.userId])
 
+    // console.log(video)
+
   return (
     <>
-
+   
     <Container type={type}>
        {
         error ? (
@@ -109,6 +108,7 @@ const Card = ({type, video}) => {
             </Div>
         ) : (
             <>
+             <Link to={`/video/${video._id}`} className="link">
                 <Img src={video.imgUrl} alt="" type={type}/>
                 <Details type={type}>
                 <Image src={channels.img} type={type}/>
@@ -118,6 +118,7 @@ const Card = ({type, video}) => {
                     <Info>{video.views} views . {format(channels.createdAt)}</Info>
                 </Texts>
                </Details>
+            </Link>
             </>
         )
        }

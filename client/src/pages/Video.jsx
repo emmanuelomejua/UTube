@@ -2,6 +2,12 @@ import styled from "styled-components"
 import { media, charter} from '../constants/images'
 import { RiAddBoxFill, RiReplyAllFill, RiThumbDownFill, RiThumbUpFill } from "react-icons/ri"
 import {Comments, Card} from "../comps"
+import { useDispatch, useSelector } from "react-redux"
+import { useState } from "react"
+import { useEffect } from "react"
+import axios from "axios"
+import { url } from "../utils/apiRoute"
+import { useLocation } from "react-router-dom"
 
 
 const Container = styled.main`
@@ -106,6 +112,27 @@ const ChannelDesc = styled.p`
 
 
 const Video = () => {
+
+    const user = useSelector(state => state.user.currentUser)
+    const dispatch = useDispatch()
+
+    const location = useLocation()
+    const path = location.pathname.split('/')[2]
+
+    const [channels, setChannels] = useState({})
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try{
+                const res = await axios.get(url + `users/find/${path}`)
+                setChannels(res.data)
+            }catch(error){
+                throw Error
+            }
+        }
+        fetchData()
+    },[path])
+
   return (
     <div>
       <Container>

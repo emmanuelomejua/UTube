@@ -1,6 +1,6 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import userReducer from "./userReducer";
-// import videoReducer from "./videoReducer";
+import videoReducer from "./videoReducer";
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
@@ -10,15 +10,12 @@ const persistConfig = {
     storage,
 }
 
-// const rootReducer = combineReducers({cart: cartReducer, user:userReducer})
+const rootReducer = combineReducers({video: videoReducer, user:userReducer})
 
-const persistedReducer = persistReducer(persistConfig, userReducer)
+const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export const store = configureStore({
-    reducer: {
-        user: persistedReducer,
-
-    },
+    reducer: persistedReducer,
     
     middleware: (getDefaultMiddleware) => 
         getDefaultMiddleware({
