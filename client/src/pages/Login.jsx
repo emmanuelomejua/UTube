@@ -7,7 +7,7 @@ import { login } from "../redux/apiCall"
 import { auth, provider } from '../firebase'
 import { signInWithPopup } from 'firebase/auth'
 import {  RiGoogleFill } from 'react-icons/ri'
-import { loginFail, loginStart, loginSuccess } from "../redux/userReducer"
+// import { loginFail, loginStart, loginSuccess } from "../redux/userReducer"
 
 
 
@@ -111,13 +111,20 @@ const Login = () => {
     }
 
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault()
-        login(dispatch, {email, password})
+
+        try {
+            await login(dispatch, {email, password})
+            window.location.replace('/');
+        } catch (error) {
+            window.location.reload('/login');
+        }
+
     }
 
     const handleLoginWithGoogle = async () => {
-        dispatch(loginStart())
+        dispatch(login.pending())
         signInWithPopup(auth, provider)
             
         .then((result) => {
@@ -127,12 +134,12 @@ const Login = () => {
                 img:  result.user.photoURL
             })
             .then((res) => {
-                dispatch(loginSuccess(res.data)) && window.location.replace('/')
+                dispatch(login.fulfilled(res.data)) && window.location.replace('/')
             })
         })
 
         .catch((error) => {
-            dispatch(loginFail())
+            dispatch(login.rejected())
             console.log(error) 
         })
     }
