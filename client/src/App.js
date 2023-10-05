@@ -8,6 +8,7 @@ import Video from './pages/Video';
 import Login from './pages/Login';
 import { Route, Routes } from 'react-router-dom';
 import {  useSelector } from 'react-redux';
+import Register from './pages/Register';
 
 
 const Container = styled.main`
@@ -46,6 +47,7 @@ function App() {
               <Route exact path='/sub' element={user ? <Home type='sub'/> : <Login/>}/>
               <Route path='/video/:id' element={<Video/>}/>
               <Route path='/signin' element={<Login/>}/>
+              <Route path='/signup' element={<Register/>}/>
            </Routes>
         
           </Wrapper>

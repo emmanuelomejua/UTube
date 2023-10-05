@@ -7,7 +7,8 @@ import { login } from "../redux/apiCall"
 import { auth, provider } from '../firebase'
 import { signInWithPopup } from 'firebase/auth'
 import {  RiGoogleFill } from 'react-icons/ri'
-// import { loginFail, loginStart, loginSuccess } from "../redux/userReducer"
+import { loginFailure, loginStart, loginSuccess } from "../redux/userReducer"
+
 
 
 
@@ -89,42 +90,13 @@ const Login = () => {
 
     const dispatch = useDispatch()
 
-    const [values, setValues] = useState({
-        email: '',
-        password: '',
-        name: ''
-    })
-
-    const handleRegister = async () => {
-        const {email, password, name} = values
-
-        try {
-            const res = await axios.post(url + 'auth/register', {
-                name,
-                email,
-                password
-            })
-            res.data &&  window.location.reload('/login')
-        } catch (error) {
-            throw Error
-        }
-    }
-
-
     const handleLogin = async (e) => {
         e.preventDefault()
-
-        try {
-            await login(dispatch, {email, password})
-            window.location.replace('/');
-        } catch (error) {
-            window.location.reload('/login');
-        }
-
+        login(dispatch({email, password}))
     }
 
     const handleLoginWithGoogle = async () => {
-        dispatch(login.pending())
+        dispatch(loginStart())
         signInWithPopup(auth, provider)
             
         .then((result) => {
@@ -134,19 +106,16 @@ const Login = () => {
                 img:  result.user.photoURL
             })
             .then((res) => {
-                dispatch(login.fulfilled(res.data)) && window.location.replace('/')
+                dispatch(loginSuccess(res.data)) && window.location.replace('/')
             })
         })
 
         .catch((error) => {
-            dispatch(login.rejected())
+            dispatch(loginFailure())
             console.log(error) 
         })
     }
 
-    const handleChange = (e) => {
-        setValues(prev=>({...prev, [e.target.name]:e.target.value}))
-    }
     
     
 
@@ -173,29 +142,7 @@ const Login = () => {
 
             <Button onClick={handleLoginWithGoogle}>Sign In with Google <RiGoogleFill/></Button>
 
-            <Input 
-            placeholder="name" 
-            name="name"
-            value={values.name}
-            onChange={handleChange}
-            />
-
-            <Input 
-            placeholder="email" 
-            name="email" 
-            value={values.email} 
-            onChange={handleChange}
-            />
-
-            <Input 
-            type="password" 
-            placeholder="password" 
-            name="password" 
-            value={values.password}  
-            onChange={handleChange}
-            />
-
-            <Button type="submit" onClick={handleRegister}>Sign Up</Button>
+            
         </Wrapper>
 
         <More>

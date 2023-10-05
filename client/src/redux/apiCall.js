@@ -1,20 +1,18 @@
 import axios from "axios";
-import { createAsyncThunk} from '@reduxjs/toolkit'
+import { loginFailure, loginStart, loginSuccess, logout } from "./userReducer";
 import { url } from "../utils/apiRoute";
-import {logout} from './userReducer'
 
-export const login = createAsyncThunk(
-    'user/login',
-    async (user, { dispatch }) => {
-      try {
-        const res = await axios.post(url + 'auth/login', user);
-        return res.data; 
-      } catch (error) {
-        throw error; 
-      }
+export const login = async (dispatch, user) => {
+
+    dispatch(loginStart());
+    try {
+        const res = await axios.post(url + 'auth/login', user)
+        dispatch(loginSuccess(res.data));
+    } catch (error) {
+        dispatch(loginFailure())
     }
-  );
+}
 
-export const Logout = (dispatch, user) => {
+export const Logout = async (dispatch, user) => {
     dispatch(logout())
 }
