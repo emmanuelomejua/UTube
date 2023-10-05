@@ -2,6 +2,7 @@ import axios from "axios"
 import { useState } from "react"
 import styled from "styled-components"
 import { url } from "../utils/apiRoute"
+import { Link } from "react-router-dom"
 // import { loginFail, loginStart, loginSuccess } from "../redux/userReducer"
 
 
@@ -139,6 +140,8 @@ const Register = () => {
             />
 
             <Button type="submit" onClick={handleRegister}>Sign Up</Button>
+
+            <Link1>Already have an account? <Link to='/signin' style={{color: 'inherit', textDecoration: 'none'}}>Sign In</Link></Link1>
         </Wrapper>
 
         <More>

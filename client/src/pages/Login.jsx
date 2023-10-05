@@ -8,6 +8,7 @@ import { auth, provider } from '../firebase'
 import { signInWithPopup } from 'firebase/auth'
 import {  RiGoogleFill } from 'react-icons/ri'
 import { loginFailure, loginStart, loginSuccess } from "../redux/userReducer"
+import { Link } from "react-router-dom"
 
 
 
@@ -90,7 +91,7 @@ const Login = () => {
 
     const dispatch = useDispatch()
 
-    const handleLogin = async (e) => {
+    const handleLogin = (e) => {
         e.preventDefault()
         login(dispatch({email, password}))
     }
@@ -140,9 +141,9 @@ const Login = () => {
 
             OR
 
-            <Button onClick={handleLoginWithGoogle}>Sign In with Google <RiGoogleFill/></Button>
+            <Button onClick={handleLoginWithGoogle}>Continue with Google <RiGoogleFill/></Button>
 
-            
+            <Link1>Do not have an account? <Link to='/signup' style={{color: 'inherit', textDecoration: 'none'}}>Sign Up</Link></Link1>
         </Wrapper>
 
         <More>
