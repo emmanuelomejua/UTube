@@ -3,12 +3,11 @@ import { useState } from "react"
 import styled from "styled-components"
 import { url } from "../utils/apiRoute"
 import { useDispatch } from "react-redux"
-import { login } from "../redux/apiCall"
 import { auth, provider } from '../firebase'
 import { signInWithPopup } from 'firebase/auth'
 import {  RiGoogleFill } from 'react-icons/ri'
-import { loginFailure, loginStart, loginSuccess } from "../redux/userReducer"
 import { Link } from "react-router-dom"
+import { ACTION_TYPES } from "../context/authActions"
 
 
 
@@ -91,13 +90,23 @@ const Login = () => {
 
     const dispatch = useDispatch()
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault()
-        login(dispatch({email, password}))
+       dispatch({type: ACTION_TYPES.LOGIN_START})
+
+       try {
+        const res = await axios.post(url + 'auth/login', {
+            email,
+            password
+        })
+        dispatch({type: ACTION_TYPES.LOGIN_SUCCESS, payload: res.data})
+       } catch (error) {
+        dispatch({type: ACTION_TYPES.LOGIN_FAIL})
+       }
     }
 
     const handleLoginWithGoogle = async () => {
-        dispatch(loginStart())
+        dispatch({type: ACTION_TYPES.LOGIN_START})
         signInWithPopup(auth, provider)
             
         .then((result) => {
@@ -107,12 +116,12 @@ const Login = () => {
                 img:  result.user.photoURL
             })
             .then((res) => {
-                dispatch(loginSuccess(res.data)) && window.location.replace('/')
+                dispatch({type: ACTION_TYPES.LOGIN_SUCCESS, payload: res.data}) && window.location.replace('/')
             })
         })
 
         .catch((error) => {
-            dispatch(loginFailure())
+            dispatch({type: ACTION_TYPES.LOGIN_FAIL})
             console.log(error) 
         })
     }

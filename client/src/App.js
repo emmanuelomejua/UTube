@@ -2,13 +2,13 @@ import styled, { ThemeProvider } from 'styled-components'
 import Menu from './comps/Menu';
 import Navbar from './comps/Navbar';
 import { darkTheme, lightTheme } from './utils/Theme';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Home from './pages/Home';
 import Video from './pages/Video';
 import Login from './pages/Login';
 import { Route, Routes } from 'react-router-dom';
-import {  useSelector } from 'react-redux';
 import Register from './pages/Register';
+import { AuthContext } from './context/authContext';
 
 
 const Container = styled.main`
@@ -27,7 +27,7 @@ const Wrapper = styled.section`
 function App() {
   const [darkMode, setDarkMode] = useState(true)
 
-  const user = useSelector(state=> state.user?.currentUser)
+  const user = useContext(AuthContext)
 
   console.log(user)
 
