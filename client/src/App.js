@@ -27,7 +27,7 @@ const Wrapper = styled.section`
 function App() {
   const [darkMode, setDarkMode] = useState(true)
 
-  const {user} = useContext(AuthContext)
+  const { user } = useContext(AuthContext)
 
   console.log(user)
 
