@@ -2,7 +2,6 @@ import styled from 'styled-components'
 import {logo} from '../constants/images'
 import { RiAccountCircleFill, RiExchangeBoxFill, RiH5, RiHistoryFill, RiHome2Fill, RiSubwayLine, RiVideoChatLine, RiMovieLine, RiNewspaperLine, RiForbid2Line, RiLogoutCircleLine, RiSunLine, RiFileReduceLine, RiSettingsLine, RiFootballLine, RiGamepadLine, RiMusic2Line } from 'react-icons/ri'
 import { Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
 import { useContext } from 'react'
 import { AuthContext } from '../context/authContext'
 
@@ -79,8 +78,7 @@ const Menu = ({setDarkMode,darkMode}) => {
 
 
   
-    const user = useContext(AuthContext)
-    const dispatch = useDispatch()
+    const { user, dispatch } = useContext(AuthContext)
   
     const handleLogout = () => {
         dispatch({type: 'LOGOUT'})

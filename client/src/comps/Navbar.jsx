@@ -74,7 +74,7 @@ const Avater = styled.img`
 
 const Navbar = () => {
 
-  const user = useContext(AuthContext)
+  const { user } = useContext(AuthContext)
 
   return (
     <Container>

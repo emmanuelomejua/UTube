@@ -1,12 +1,12 @@
 import axios from "axios"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import styled from "styled-components"
 import { url } from "../utils/apiRoute"
-import { useDispatch } from "react-redux"
 import { auth, provider } from '../firebase'
 import { signInWithPopup } from 'firebase/auth'
 import {  RiGoogleFill } from 'react-icons/ri'
 import { Link } from "react-router-dom"
+import { AuthContext } from "../context/authContext"
 
 
 
@@ -87,7 +87,7 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const dispatch = useDispatch()
+    const { dispatch } = useContext(AuthContext)
 
     const handleLogin = async (e) => {
         e.preventDefault()
