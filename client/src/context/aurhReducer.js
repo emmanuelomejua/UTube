@@ -1,27 +1,25 @@
-import { ACTION_TYPES } from './authActions'
-
 
 const authReducer = (state, action) => {
     switch(action.type){
-        case ACTION_TYPES.LOGIN_START:
+        case 'LOGIN_START':
             return{
                 user: null,
                 error: false,
                 loading: false
             };
-        case ACTION_TYPES.LOGIN_SUCCESS:
+        case 'LOGIN_SUCCESS':
             return{
                 user: action.payload,
                 error: false,
                 loading: false
             };
-        case ACTION_TYPES.LOGIN_FAIL:
+        case 'LOGIN_FAIL':
             return{
                 ...state,
                 user: null,
                 error: true
             };
-        case ACTION_TYPES.LOGOUT:
+        case 'LOGOUT':
             return{
                 user: null,
                 error: false,

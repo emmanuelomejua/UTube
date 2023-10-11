@@ -1,7 +1,8 @@
+import { useContext } from 'react'
 import { RiAccountCircleFill, RiSearch2Line, RiVideoUploadFill } from 'react-icons/ri'
-import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { AuthContext } from '../context/authContext'
 
 
 const Container = styled.section`
@@ -73,8 +74,7 @@ const Avater = styled.img`
 
 const Navbar = () => {
 
-  const user = useSelector(state=> state.user?.currentUser)
-
+  const user = useContext(AuthContext)
 
   return (
     <Container>
